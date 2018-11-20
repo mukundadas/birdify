@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, TextInput, PixelRatio, Image } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, PixelRatio, Image, BackHandler, StatusBar } from 'react-native';
+import firebase from 'firebase';
 
 const searchImg = require('../../images/plus.jpg');
 
 export default class Search extends Component {
   state = { name: '', scientificName: '', subSpecies: '', conStat: '', desc: '', image: '' };
+
+  componentDidMount() {
+    StatusBar.setHidden(true);
+    BackHandler.addEventListener('hardwareBackPress', () => this.handleBack());
+  }
+
+  toLogout() {
+    firebase.auth().signOut();
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBack);
+    this.props.navigation.navigate('login');
+  }
 
   render() {
     return (
@@ -68,7 +80,12 @@ export default class Search extends Component {
           value={this.state.subSpecies}
        />
       </View>
-
+      <TouchableOpacity
+       style={styles.submitContainer}
+       onPress={() => this.props.navigation.navigate('levelsDash')}
+      >
+       <Text style={styles.subButtonText}>Submit</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -78,8 +95,8 @@ const styles = {
   imageStyle: {
     alignSelf: 'flex-end',
     bottom: 0,
-    height: f * 25,
-    width: f * 25,
+    height: f * 30,
+    width: f * 30,
     //position: 'relative'
   },
   mainContainer: {
@@ -137,5 +154,20 @@ const styles = {
     fontSize: f * 14,
     borderRadius: f * 5,
     width: '80%'
+  },
+  submitContainer: {
+    backgroundColor: '#F26215',
+    paddingVertical: f * 10,
+    marginBottom: f * 10,
+    //marginTop: f * 5,
+    borderRadius: f * 10,
+    alignSelf: 'center',
+    paddingHorizontal: f * 20
+  },
+  subButtonText: {
+    textAlign: 'center',
+    color: 'black',
+    fontWeight: '700',
+    fontSize: f * 18
   }
 };

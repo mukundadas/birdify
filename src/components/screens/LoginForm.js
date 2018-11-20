@@ -192,14 +192,14 @@ const styles = {
     borderRadius: f * 10
   },
   logInContainer: {
-    backgroundColor: 'red',
+    backgroundColor: '#F26215',
     paddingVertical: f * 15,
     marginBottom: f * 15,
     marginTop: f * 5,
     borderRadius: f * 10
   },
   signUpContainer: {
-    backgroundColor: 'red',
+    backgroundColor: '#F26215',
     paddingVertical: f * 15,
     marginBottom: f * 15,
     marginTop: 0,
@@ -207,7 +207,7 @@ const styles = {
   },
   buttonText: {
     textAlign: 'center',
-    color: '#fff',
+    color: 'black',
     fontWeight: '700',
     fontSize: f * 18
   },

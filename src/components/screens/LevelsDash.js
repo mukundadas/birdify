@@ -150,7 +150,7 @@ class ChildDash extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: '#eae7d6' }}>
+      <View style={{ flex: 1, backgroundColor: 'black' }}>
 
 
         <ListView
@@ -162,20 +162,6 @@ class ChildDash extends Component {
             />
           }
         />
-        <View style={styles.containerStyle}>
-        <TouchableOpacity
-         style={styles.logoutcont}
-         onPress={() => this.toLogout()}
-        >
-         <Text style={styles.buttonText}>Log Out</Text>
-       </TouchableOpacity>
-       <TouchableOpacity
-        style={styles.logoutcont}
-        onPress={() => this.props.navigation.navigate('Search')}
-       >
-        <Text style={styles.buttonText}>Add/Learn</Text>
-      </TouchableOpacity>
-       </View>
       </View>
 
     );

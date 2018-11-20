@@ -110,15 +110,6 @@ const styles = {
     fontWeight: '500',
     fontSize: f * 16
   },
-  viewStyle: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: f * 90,
-    height: f * 50,
-    borderWidth: f * 1,
-    borderColor: 'white'
-  },
   flatlistStyle: {
     flex: 1,
     justifyContent: 'center'
