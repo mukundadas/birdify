@@ -1,53 +1,102 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Linking, PixelRatio } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, TextInput, PixelRatio, Image } from 'react-native';
 
-const Search = () => {
-  const {
-    mainContainer,
-    toolBar,
-    toolBarTitle,
-    content,
-    bottom,
-    //imageStyle,
-    contentStyle,
-    contentHeaderStyle,
-  } = styles;
+const searchImg = require('../../images/plus.jpg');
 
-  return (
-    <View style={mainContainer}>
-      <View style={toolBar}>
-          <Text style={toolBarTitle}>Search/Add</Text>
+export default class Search extends Component {
+  state = { name: '', scientificName: '', subSpecies: '', conStat: '', desc: '', image: '' };
+
+  render() {
+    return (
+    <View style={styles.mainContainer}>
+      <View style={styles.toolBar}>
+          <TouchableOpacity
+           onPress={() => this.toLogout()}
+           style={styles.logoutcont}
+          >
+           <Text style={styles.buttonText}>Log Out</Text>
+          </TouchableOpacity>
+          <Text style={styles.toolBarTitle}>Search/Add</Text>
+          <TouchableOpacity
+           style={styles.searchcont}
+          >
+           <Image
+            source={searchImg}
+            style={styles.imageStyle}
+           />
+          </TouchableOpacity>
       </View>
-      <View style={content}>
-          <Text style={contentHeaderStyle}>Welcome to the Search/Add page!</Text>
-          <Text />
+      <View style={styles.ipCont}>
+       <Text style={styles.ipText}>Name:</Text>
+       <TextInput
+          style={styles.input}
+          value={this.state.name}
+       />
       </View>
+      <View style={styles.ipCont}>
+       <Text style={styles.ipText}>Conservation Status:</Text>
+       <TextInput
+          style={styles.input}
+          value={this.state.conStat}
+       />
+      </View>
+      <View style={styles.ipCont}>
+       <Text style={styles.ipText}>Description:</Text>
+       <TextInput
+          style={styles.input}
+          value={this.state.desc}
+       />
+      </View>
+      <View style={styles.ipCont}>
+       <Text style={styles.ipText}>Image:</Text>
+       <TextInput
+          style={styles.input}
+          value={this.state.image}
+       />
+      </View>
+      <View style={styles.ipCont}>
+       <Text style={styles.ipText}>Scientific Name:</Text>
+       <TextInput
+          style={styles.input}
+          value={this.state.scientificName}
+       />
+      </View>
+      <View style={styles.ipCont}>
+       <Text style={styles.ipText}>Sub Species:</Text>
+       <TextInput
+          style={styles.input}
+          value={this.state.subSpecies}
+       />
+      </View>
+
     </View>
   );
-};
+}
+}
 const f = PixelRatio.getFontScale();
 const styles = {
   imageStyle: {
-    alignSelf: 'center',
+    alignSelf: 'flex-end',
     bottom: 0,
-    height: f * 75,
-    width: f * 300,
-    position: 'absolute'
+    height: f * 25,
+    width: f * 25,
+    //position: 'relative'
   },
   mainContainer: {
-    flex: 1
-  },
-  content: {
-    flex: 2,
-    alignItems: 'center',
-    marginTop: f * 20,
-    marginBottom: f * 20
+    flex: 1,
+    backgroundColor: 'black'
   },
   toolBar: {
-    backgroundColor: '#20a3aa',
     paddingTop: f * 20,
     paddingBottom: f * 20,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    //flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomWidth: 2,
+    borderColor: '#F26215',
+    height: '10%',
+    top: 0
   },
   toolBarTitle: {
     color: '#fff',
@@ -56,31 +105,37 @@ const styles = {
     fontWeight: '700',
     fontSize: f * 18
   },
-  bottom: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginTop: f * 100
+  buttonText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: f * 18
   },
-  contentHeaderStyle: {
-    fontSize: f * 16,
-    textAlign: 'center',
-    color: '#000'
+  logoutcont: {
+    marginLeft: 10
   },
-  contentStyle: {
+  searchcont: {
+    marginRight: 10
+  },
+  ipText: {
+    color: '#F26215',
     fontSize: f * 16,
-    textAlign: 'center',
-    color: '#000',
-    margin: f * 5
+    fontWeight: '500',
+    marginBottom: 5
+  },
+  ipCont: {
+    //flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1
+  },
+  input: {
+    height: f * 20,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    //marginBottom: f * 10,
+    color: '#fff',
+    paddingHorizontal: f * 10,
+    fontSize: f * 14,
+    borderRadius: f * 5,
+    width: '80%'
   }
 };
-
-/*
-<View style={bottom}>
-    <Image
-      source={headerImage}
-      style={imageStyle}
-      resizeMode="stretch"
-    />
-</View>*/
-
-export default Search;

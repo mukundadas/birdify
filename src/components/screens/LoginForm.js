@@ -53,7 +53,7 @@ export default class Login extends Component {
       loading: false,
       error: ''
     });
-    this.props.navigation.navigate('levelsDash');
+    this.props.navigation.navigate('Search');
   }
 
   loadingSpinner() {
