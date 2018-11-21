@@ -59,35 +59,26 @@ export default class Search extends Component {
     if (this.state.label === 'Query') {
       let data = []
 
-      if (this.state.name === '' &&
-          this.state.scientificName ===  '' &&
-          this.state.subSpecies ===  '' &&
-          this.state.conStat ===  '') {
-            for(var j = 1; j <= Object.keys(this.state.birdData).length; j++) {
-              data.push(this.state.birdData['bird' + j]);
-            }
-          } else {
-            for(var i = 1; i <= Object.keys(this.state.birdData).length; i++) {
-              const bird = this.state.birdData['bird' + i];
+      for(var i = 1; i <= Object.keys(this.state.birdData).length; i++) {
+        const bird = this.state.birdData['bird' + i];
 
-              let n = bird['Name'];
-              let sn = bird['Scientific Name'];
-              let ss = bird['Subspecies'];
-              let cs = bird['Conservation Status'];
+        let n = bird['Name'];
+        let sn = bird['Scientific Name'];
+        let ss = bird['Subspecies'];
+        let cs = bird['Conservation Status'];
 
-              if (this.state.name !== '') { n = this.state.name.toUpperCase(); }
-              if (this.state.scientificName !== '') { sn = this.state.scientificName.toUpperCase(); }
-              if (this.state.subSpecies !== '') { ss = this.state.subSpecies.toUpperCase(); }
-              if (this.state.conStat !== '') { cs = this.state.conStat.toUpperCase(); }
+        if (this.state.name !== '') { n = this.state.name.toUpperCase(); }
+        if (this.state.scientificName !== '') { sn = this.state.scientificName.toUpperCase(); }
+        if (this.state.subSpecies !== '') { ss = this.state.subSpecies.toUpperCase(); }
+        if (this.state.conStat !== '') { cs = this.state.conStat.toUpperCase(); }
 
-              if (n === bird['Name'] &&
-              sn === bird['Scientific Name'] &&
-              ss === bird['Subspecies'] &&
-              cs === (bird['Conservation Status'])) {
-                data.push(bird);
-              }
-            }
-          }
+        if (n === bird['Name'] &&
+        sn === bird['Scientific Name'] &&
+        ss === bird['Subspecies'] &&
+        cs === (bird['Conservation Status'])) {
+          data.push(bird);
+        }
+      }
       this.props.navigation.navigate('levelsDash', { birdData: data });
     } else {
       let data = this.state.birdData;
