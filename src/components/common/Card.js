@@ -23,7 +23,7 @@ const styles = {
     marginTop: f * 10,
     borderRadius: f * 20,
     overflow: 'hidden',
-    backgroundColor: 'black'
+    backgroundColor: '#1C1B1B'
   }
 };
 
