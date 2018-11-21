@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, Linking, Image, FlatList, View, PixelRatio } from 'react-native';
+import { Text, TouchableOpacity, Linking, Image, View, PixelRatio } from 'react-native';
 import { Card, CardSection } from './common';
 
 
@@ -7,7 +7,6 @@ const LevelDetail = (props) => {
   const {
     labelTextStyle,
     imageStyle,
-    flatlistStyle,
     buttonText,
   } = styles;
 
@@ -55,27 +54,24 @@ class HorizontalFlatListItem extends Component {
     );
 	}
   return (
-      <Card style={{ backgroundColor: props.color }}>
-          <CardSection style={{ backgroundColor: props.color }}>
+      <Card>
+          <CardSection>{/*name*/}
               <Text style={labelTextStyle}>{props.level}</Text>
           </CardSection>
-
-          <CardSection style={{ backgroundColor: props.color }}>
+          <CardSection>
+           {/*image*/}
+          </CardSection>
+          <CardSection>{/*conStat*/}
             <Text style={buttonText}>{props.body}</Text>
           </CardSection>
-          <CardSection style={{ backgroundColor: props.color }}>
-            <FlatList
-                data={list}
-                contentContainerStyle={list.length < 7 && flatlistStyle}
-                horizontal={true}
-                renderItem={({ item, index }) =>
-                    <HorizontalFlatListItem
-                      index={index}
-                      item={item}
-                    />
-                }
-                keyExtractor={(item, index) => index.toString()}
-            />
+          <CardSection>
+            <Text style={buttonText}>scientificName</Text>
+          </CardSection>
+          <CardSection>
+            <Text style={buttonText}>subspecies</Text>
+          </CardSection>
+          <CardSection>
+            <Text style={buttonText}>description</Text>
           </CardSection>
 
       </Card>

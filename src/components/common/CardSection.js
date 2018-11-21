@@ -14,9 +14,10 @@ const styles = {
     borderBottomWidth: f * 1,
     justifyContent: 'center',
     flexDirection: 'row',
-    borderColor: '#ddd',
+    borderColor: '#F26215',
     position: 'relative',
-    borderRadius: f * 20
+    borderRadius: f * 20,
+    backgroundColor: 'black'
   }
 };
 

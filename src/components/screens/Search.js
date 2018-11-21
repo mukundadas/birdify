@@ -42,7 +42,9 @@ export default class Search extends Component {
        <Text style={styles.ipText}>Name:</Text>
        <TextInput
           style={styles.input}
-          value={this.state.name}
+          //value={this.state.name}
+          underlineColorAndroid='rgba(0,0,0,0)'
+          onChangeText={(text) => this.setState({ name: text })}
        />
       </View>
       <View style={styles.ipCont}>
@@ -50,6 +52,8 @@ export default class Search extends Component {
        <TextInput
           style={styles.input}
           value={this.state.conStat}
+          underlineColorAndroid='rgba(0,0,0,0)'
+          onChangeText={(text) => this.setState({ conStat: text })}
        />
       </View>
       <View style={styles.ipCont}>
@@ -57,6 +61,9 @@ export default class Search extends Component {
        <TextInput
           style={styles.input}
           value={this.state.desc}
+          underlineColorAndroid='rgba(0,0,0,0)'
+          multiline
+          onChangeText={(text) => this.setState({ desc: text })}
        />
       </View>
       <View style={styles.ipCont}>
@@ -64,6 +71,8 @@ export default class Search extends Component {
        <TextInput
           style={styles.input}
           value={this.state.image}
+          underlineColorAndroid='rgba(0,0,0,0)'
+          onChangeText={(text) => this.setState({ image: text })}
        />
       </View>
       <View style={styles.ipCont}>
@@ -71,6 +80,8 @@ export default class Search extends Component {
        <TextInput
           style={styles.input}
           value={this.state.scientificName}
+          underlineColorAndroid='rgba(0,0,0,0)'
+          onChangeText={(text) => this.setState({ scientificName: text })}
        />
       </View>
       <View style={styles.ipCont}>
@@ -78,6 +89,8 @@ export default class Search extends Component {
        <TextInput
           style={styles.input}
           value={this.state.subSpecies}
+          underlineColorAndroid='rgba(0,0,0,0)'
+          onChangeText={(text) => this.setState({ subSpecies: text })}
        />
       </View>
       <TouchableOpacity
@@ -146,7 +159,7 @@ const styles = {
     flex: 1
   },
   input: {
-    height: f * 20,
+    height: f * 25,
     backgroundColor: 'rgba(255,255,255,0.2)',
     //marginBottom: f * 10,
     color: '#fff',
