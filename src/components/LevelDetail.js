@@ -34,21 +34,6 @@ class HorizontalFlatListItem extends Component {
       /*links = [];*/
       list = [];
     }
-
-    /* --- Code Not Used Anymore */
-    /*
-    links.push(
-			<View style={viewStyle} key={i}>
-        <TouchableOpacity
-         onPress={() => Linking.openURL(props.links[i])}
-        >
-        <Image
-         source={props.src[i]}
-        />
-        </TouchableOpacity>
-      </View>
-		);
-    */
     list.push(
       { Link: props.links[i], Img: props.src[i] }
     );
