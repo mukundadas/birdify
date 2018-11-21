@@ -67,10 +67,10 @@ export default class Search extends Component {
         let ss = bird['Subspecies'];
         let cs = bird['Conservation Status'];
 
-        if (this.state.name !== '') { n = this.state.name.toUpperCase(); }
-        if (this.state.scientificName !== '') { sn = this.state.scientificName.toUpperCase(); }
-        if (this.state.subSpecies !== '') { ss = this.state.subSpecies.toUpperCase(); }
-        if (this.state.conStat !== '') { cs = this.state.conStat.toUpperCase(); }
+        if (this.state.name !== '') { n = this.state.name; }
+        if (this.state.scientificName !== '') { sn = this.state.scientificName; }
+        if (this.state.subSpecies !== '') { ss = this.state.subSpecies; }
+        if (this.state.conStat !== '') { cs = this.state.conStat; }
 
         if (n === bird['Name'] &&
         sn === bird['Scientific Name'] &&
