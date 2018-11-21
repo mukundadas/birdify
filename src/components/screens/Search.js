@@ -28,15 +28,15 @@ export default class Search extends Component {
     BackHandler.addEventListener('hardwareBackPress', () => this.handleBack());
 
     let tempData = {}
-    let ctr = 1;
 
-    firebase.database().ref().on('value', dataSnapshot => {
-      let tempObj = {}
+    firebase.database().ref().child('birds').on('value', dataSnapshot => {
       dataSnapshot.forEach(childSnap => {
-        tempObj[childSnap.key] = childSnap.val();
+        let tempObj = {}
+        childSnap.forEach(childParam => {
+          tempObj[childParam.key] = childParam.val();
+        });
+        tempData[childSnap.key] = tempObj;
       });
-      tempData['bird' + ctr] = tempObj;
-      ctr = ctr + 1;
     });
     this.setState({ birdData: tempData });
   }
@@ -57,30 +57,41 @@ export default class Search extends Component {
 
   buttonPress() {
     if (this.state.label === 'Query') {
-      let data = {}
+      let data = []
 
       if (this.state.name === '' &&
           this.state.scientificName ===  '' &&
           this.state.subSpecies ===  '' &&
           this.state.conStat ===  '') {
-            data = this.state.birdData;
+            for(var j = 1; j <= Object.keys(this.state.birdData).length; j++) {
+              data.push(this.state.birdData['bird' + j]);
+            }
           } else {
-            let ctr = 1;
-            this.state.birdData.forEach(bird => {
-              if (this.state.name.toUpperCase() === bird['Name'].toUpperCase() ||
-              this.state.scientificName.toUpperCase() === bird['Scientific Name'].toUpperCase() ||
-              this.state.subSpecies.toUpperCase() === bird['Subspecies'].toUpperCase() ||
-              this.state.conStat.toUpperCase() ===  bird['Conservation Status'].toUpperCase()) {
-                data['bird' + ctr] = bird;
-                ctr = ctr + 1;
-              }
-            });
-          }
+            for(var i = 1; i <= Object.keys(this.state.birdData).length; i++) {
+              const bird = this.state.birdData['bird' + i];
 
+              let n = bird['Name'];
+              let sn = bird['Scientific Name'];
+              let ss = bird['Subspecies'];
+              let cs = bird['Conservation Status'];
+
+              if (this.state.name !== '') { n = this.state.name.toUpperCase(); }
+              if (this.state.scientificName !== '') { sn = this.state.scientificName.toUpperCase(); }
+              if (this.state.subSpecies !== '') { ss = this.state.subSpecies.toUpperCase(); }
+              if (this.state.conStat !== '') { cs = this.state.conStat.toUpperCase(); }
+
+              if (n === bird['Name'] &&
+              sn === bird['Scientific Name'] &&
+              ss === bird['Subspecies'] &&
+              cs === (bird['Conservation Status'])) {
+                data.push(bird);
+              }
+            }
+          }
       this.props.navigation.navigate('levelsDash', { birdData: data });
     } else {
       let data = this.state.birdData;
-      const ctr = data.length + 1;
+      const ctr = Object.keys(data).length + 1;
       let tempObj = {};
 
       tempObj['Conservation Status'] = this.state.conStat;
@@ -91,8 +102,8 @@ export default class Search extends Component {
       tempObj['Subspecies'] = this.state.subSpecies;
 
       data['bird' + ctr] = tempObj;
-      firebase.database().ref().update(data);
-      ToastAndroid.show('Added to Databse', ToastAndroid.SHORT);
+      firebase.database().ref().update({ birds: data });
+      //ToastAndroid.show('Added to Databse', ToastAndroid.SHORT);
     }
   }
 

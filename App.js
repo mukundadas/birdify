@@ -5,12 +5,12 @@ import Root from './src/components/Root';
 class App extends Component {
   componentWillMount() {
     firebase.initializeApp({
-      apiKey: 'AIzaSyDuGZB-7w5lxpEd3AZnuBrslvFydaSDSAk',
-    authDomain: 'authentication-5b723.firebaseapp.com',
-    databaseURL: 'https://authentication-5b723.firebaseio.com',
-    projectId: 'authentication-5b723',
-    storageBucket: 'authentication-5b723.appspot.com',
-    messagingSenderId: '757229173065'
+      apiKey: "AIzaSyBS-Sjz3jgUvSs4scOwd_ih9weKsjnRWD0",
+    authDomain: "wildify-926ea.firebaseapp.com",
+    databaseURL: "https://wildify-926ea.firebaseio.com",
+    projectId: "wildify-926ea",
+    storageBucket: "wildify-926ea.appspot.com",
+    messagingSenderId: "813035770457"
   });
   }
 
