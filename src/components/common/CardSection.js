@@ -17,7 +17,7 @@ const styles = {
     borderColor: '#F26215',
     position: 'relative',
     borderRadius: f * 20,
-    backgroundColor: 'black'
+    backgroundColor: '#1C1B1B'
   }
 };
 
