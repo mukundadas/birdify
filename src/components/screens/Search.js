@@ -11,7 +11,7 @@ const plusImg = require('../../images/plus.jpg');
 export default class Search extends Component {
   state = {
     label: 'Query',
-    switchImg: searchImg,
+    switchImg: plusImg,
 
     name: '',
     scientificName: '',
@@ -49,9 +49,9 @@ export default class Search extends Component {
 
   switchMode() {
     if (this.state.label === 'Query') {
-      this.setState({ label: 'Add', switchImg: plusImg });
+      this.setState({ label: 'Add', switchImg: searchImg });
     } else {
-      this.setState({ label: 'Query', switchImg: searchImg });
+      this.setState({ label: 'Query', switchImg: plusImg });
     }
   }
 
