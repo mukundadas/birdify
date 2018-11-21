@@ -128,6 +128,7 @@ introduce you to syllables'
 class ChildDash extends Component {
   constructor(props) {
     super(props);
+     const birdData = this.props.navigation.state.birdData;
      const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
      this.state = {
        dataSource: ds.cloneWithRows(levels),

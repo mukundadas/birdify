@@ -1,41 +1,134 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity,
          TextInput, PixelRatio, Image,
-         BackHandler, StatusBar } from 'react-native';
+         BackHandler, StatusBar, ToastAndroid
+       } from 'react-native';
 import firebase from 'firebase';
 
-const searchImg = require('../../images/plus.jpg');
+const searchImg = require('../../images/search.png');
+const plusImg = require('../../images/plus.jpg');
 
 export default class Search extends Component {
   state = {
+    label: 'Query',
+    switchImg: searchImg,
+
     name: '',
     scientificName: '',
     subSpecies: '',
     conStat: '',
     desc: '',
     image: '',
-    birdData: []
+
+    birdData: {}
   };
 
   componentDidMount() {
     StatusBar.setHidden(true);
     BackHandler.addEventListener('hardwareBackPress', () => this.handleBack());
 
-    tempData = []
+    let tempData = {}
+    let ctr = 1;
 
     firebase.database().ref().on('value', dataSnapshot => {
-      tempObj = {}
+      let tempObj = {}
       dataSnapshot.forEach(childSnap => {
-        tempObj[childSnap.key] = childSnap.val()
+        tempObj[childSnap.key] = childSnap.val();
       });
-      //tempData.
+      tempData['bird' + ctr] = tempObj;
+      ctr = ctr + 1;
     });
+    this.setState({ birdData: tempData });
   }
 
   toLogout() {
     firebase.auth().signOut();
     BackHandler.removeEventListener('hardwareBackPress', this.handleBack);
     this.props.navigation.navigate('login');
+  }
+
+  switchMode() {
+    if (this.state.label === 'Query') {
+      this.setState({ label: 'Add', switchImg: plusImg });
+    } else {
+      this.setState({ label: 'Query', switchImg: searchImg });
+    }
+  }
+
+  buttonPress() {
+    if (this.state.label === 'Query') {
+      let data = {}
+
+      if (this.state.name === '' &&
+          this.state.scientificName ===  '' &&
+          this.state.subSpecies ===  '' &&
+          this.state.conStat ===  '') {
+            data = this.state.birdData;
+          } else {
+            let ctr = 1;
+            this.state.birdData.forEach(bird => {
+              if (this.state.name.toUpperCase() === bird['Name'].toUpperCase() ||
+              this.state.scientificName.toUpperCase() === bird['Scientific Name'].toUpperCase() ||
+              this.state.subSpecies.toUpperCase() === bird['Subspecies'].toUpperCase() ||
+              this.state.conStat.toUpperCase() ===  bird['Conservation Status'].toUpperCase()) {
+                data['bird' + ctr] = bird;
+                ctr = ctr + 1;
+              }
+            });
+          }
+
+      this.props.navigation.navigate('levelsDash', { birdData: data });
+    } else {
+      let data = this.state.birdData;
+      const ctr = data.length + 1;
+      let tempObj = {};
+
+      tempObj['Conservation Status'] = this.state.conStat;
+      tempObj['Description'] = this.state.desc;
+      tempObj['Image'] = this.state.image;
+      tempObj['Name'] = this.state.name;
+      tempObj['Scientific Name'] = this.state.scientificName;
+      tempObj['Subspecies'] = this.state.subSpecies;
+
+      data['bird' + ctr] = tempObj;
+      firebase.database().ref().update(data);
+      ToastAndroid.show('Added to Databse', ToastAndroid.SHORT);
+    }
+  }
+
+  imgHandler() {
+    if (this.state.label === 'Add') {
+      return (
+        <View style={styles.ipCont}>
+         <Text style={styles.ipText}>Image:</Text>
+         <TextInput
+            style={styles.input}
+            value={this.state.image}
+            underlineColorAndroid='rgba(0,0,0,0)'
+            onChangeText={(text) => this.setState({ image: text })}
+         />
+        </View>
+      );
+    }
+    return null;
+  }
+
+  descHandler() {
+    if (this.state.label === 'Add') {
+      return (
+        <View style={styles.ipCont}>
+         <Text style={styles.ipText}>Description:</Text>
+         <TextInput
+            style={styles.input}
+            value={this.state.desc}
+            underlineColorAndroid='rgba(0,0,0,0)'
+            multiline
+            onChangeText={(text) => this.setState({ desc: text })}
+         />
+        </View>
+      );
+    }
+    return null;
   }
 
   render() {
@@ -48,12 +141,13 @@ export default class Search extends Component {
           >
            <Text style={styles.buttonText}>Log Out</Text>
           </TouchableOpacity>
-          <Text style={styles.toolBarTitle}>Search/Add</Text>
+          <Text style={styles.toolBarTitle}>{this.state.label}</Text>
           <TouchableOpacity
            style={styles.searchcont}
+           onPress={() => this.switchMode()}
           >
            <Image
-            source={searchImg}
+            source={this.state.switchImg}
             style={styles.imageStyle}
            />
           </TouchableOpacity>
@@ -76,25 +170,8 @@ export default class Search extends Component {
           onChangeText={(text) => this.setState({ conStat: text })}
        />
       </View>
-      <View style={styles.ipCont}>
-       <Text style={styles.ipText}>Description:</Text>
-       <TextInput
-          style={styles.input}
-          value={this.state.desc}
-          underlineColorAndroid='rgba(0,0,0,0)'
-          multiline
-          onChangeText={(text) => this.setState({ desc: text })}
-       />
-      </View>
-      <View style={styles.ipCont}>
-       <Text style={styles.ipText}>Image:</Text>
-       <TextInput
-          style={styles.input}
-          value={this.state.image}
-          underlineColorAndroid='rgba(0,0,0,0)'
-          onChangeText={(text) => this.setState({ image: text })}
-       />
-      </View>
+      {this.descHandler()}
+      {this.imgHandler()}
       <View style={styles.ipCont}>
        <Text style={styles.ipText}>Scientific Name:</Text>
        <TextInput
@@ -115,9 +192,9 @@ export default class Search extends Component {
       </View>
       <TouchableOpacity
        style={styles.submitContainer}
-       onPress={() => this.props.navigation.navigate('levelsDash')}
+       onPress={() => this.buttonPress()}
       >
-       <Text style={styles.subButtonText}>Submit</Text>
+       <Text style={styles.subButtonText}>{this.state.label}</Text>
       </TouchableOpacity>
     </View>
   );
