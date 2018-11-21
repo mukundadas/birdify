@@ -1,15 +1,35 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, TextInput, PixelRatio, Image, BackHandler, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity,
+         TextInput, PixelRatio, Image,
+         BackHandler, StatusBar } from 'react-native';
 import firebase from 'firebase';
 
 const searchImg = require('../../images/plus.jpg');
 
 export default class Search extends Component {
-  state = { name: '', scientificName: '', subSpecies: '', conStat: '', desc: '', image: '' };
+  state = {
+    name: '',
+    scientificName: '',
+    subSpecies: '',
+    conStat: '',
+    desc: '',
+    image: '',
+    birdData: []
+  };
 
   componentDidMount() {
     StatusBar.setHidden(true);
     BackHandler.addEventListener('hardwareBackPress', () => this.handleBack());
+
+    tempData = []
+
+    firebase.database().ref().on('value', dataSnapshot => {
+      tempObj = {}
+      dataSnapshot.forEach(childSnap => {
+        tempObj[childSnap.key] = childSnap.val()
+      });
+      //tempData.
+    });
   }
 
   toLogout() {
