@@ -29,7 +29,6 @@ class ChildDash extends Component {
   }
 
   cardRender(bird) {
-    console.log(bird);
     return (
         <Card>
             <CardSection>{/*name*/}
