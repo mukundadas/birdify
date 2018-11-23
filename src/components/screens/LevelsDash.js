@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView, View, Image, TouchableOpacity, BackHandler, Text, StatusBar, PixelRatio } from 'react-native';
+import { ListView, View, Image, TouchableOpacity, BackHandler, Text, StatusBar, PixelRatio, Alert } from 'react-native';
 import firebase from 'firebase';
 import { Card, CardSection } from '../common';
 
@@ -8,6 +8,9 @@ class ChildDash extends Component {
   constructor(props) {
     super(props);
      this.birdData = this.props.navigation.state.params.birdData;
+     this.e = this.props.navigation.state.params.e;
+     this.v = this.props.navigation.state.params.v;
+     this.lc = this.props.navigation.state.params.lc;
      const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
      this.state = {
        dataSource: ds.cloneWithRows(this.birdData),
@@ -26,6 +29,16 @@ class ChildDash extends Component {
   handleBack() {
     this.props.navigation.navigate('levelsDash');
     return true;
+  }
+
+  count() {
+    Alert.alert('Conservation Status',
+    'Endangered: '
+    + this.e
+    + '\nLeast Concern: '
+    + this.lc
+    + '\nVulnerable: '
+    + this.v);
   }
 
   cardRender(bird) {
@@ -61,6 +74,13 @@ class ChildDash extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: 'black' }}>
 
+        <TouchableOpacity
+          style={{ height: '7%', width: '100%', borderRadius: 20, borderWidth: 1,
+          borderColor: '#F26215', alignItems: 'center', justifyContent: 'center' }}
+          onPress={() => this.count()}
+        >
+          <Text style={{ fontSize: 17, color: '#F26215' }}>Show Conservation Status Count</Text>
+        </TouchableOpacity>
 
         <ListView
           style={{ flex: 1 }}

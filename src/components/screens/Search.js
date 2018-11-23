@@ -58,6 +58,9 @@ export default class Search extends Component {
   buttonPress() {
     if (this.state.label === 'Query') {
       let data = []
+      let v = 0;
+      let e = 0;
+      let lc = 0;
 
       for(var i = 1; i <= Object.keys(this.state.birdData).length; i++) {
         const bird = this.state.birdData['bird' + i];
@@ -72,14 +75,22 @@ export default class Search extends Component {
         if (this.state.subSpecies !== '') { ss = this.state.subSpecies; }
         if (this.state.conStat !== '') { cs = this.state.conStat; }
 
-        if (n.toUpperCase() === bird['Name'].toUpperCase() &&
-        sn.toUpperCase() === bird['Scientific Name'].toUpperCase() &&
-        ss.toUpperCase() === bird['Subspecies'].toUpperCase() &&
-        cs.toUpperCase() === (bird['Conservation Status'].toUpperCase())) {
+        if (n === bird['Name'] &&
+        sn === bird['Scientific Name'] &&
+        ss === bird['Subspecies'] &&
+        cs === (bird['Conservation Status'])) {
           data.push(bird);
+          const tempo = bird['Conservation Status'];
+          if (tempo === 'Endangered') {
+            e += 1;
+          } else if (tempo === 'Least Concern') {
+            lc += 1;
+          } else if (tempo === 'Vulnerable') {
+            v += 1;
+          }
         }
       }
-      this.props.navigation.navigate('levelsDash', { birdData: data });
+      this.props.navigation.navigate('levelsDash', { birdData: data, lc, e, v });
     } else {
       let data = this.state.birdData;
       const ctr = Object.keys(data).length + 1;
