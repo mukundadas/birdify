@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import firebase from '@firebase/app';
 import Root from './src/components/Root';
 //test
 class App extends Component {

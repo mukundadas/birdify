@@ -105,7 +105,7 @@ export default class Search extends Component {
 
       data['bird' + ctr] = tempObj;
       firebase.database().ref().update({ birds: data });
-      //ToastAndroid.show('Added to Databse', ToastAndroid.SHORT);
+      ToastAndroid.show('Added to Databse', ToastAndroid.SHORT);
     }
   }
 
