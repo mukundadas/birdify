@@ -1,0 +1,11 @@
+
+Showing Recent Messages
+
+Prepare build
+note: Using new build systemnote: Planning buildnote: Constructing build description
+
+Build system information
+error: Signing for "birdifyTests" requires a development team. Select a development team in the project editor. (in target 'birdifyTests')
+
+
+Build failed    24/11/18, 12:12 AM    1.2 seconds

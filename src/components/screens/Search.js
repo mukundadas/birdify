@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity,
          TextInput, PixelRatio, Image,
-         BackHandler, StatusBar, ToastAndroid
+         BackHandler, StatusBar, ToastAndroid, KeyboardAvoidingView
        } from 'react-native';
 import firebase from 'firebase';
 
@@ -146,6 +146,7 @@ export default class Search extends Component {
 
   render() {
     return (
+    <KeyboardAvoidingView>
     <View style={styles.mainContainer}>
       <View style={styles.toolBar}>
           <TouchableOpacity
@@ -210,6 +211,7 @@ export default class Search extends Component {
        <Text style={styles.subButtonText}>{this.state.label}</Text>
       </TouchableOpacity>
     </View>
+    </KeyboardAvoidingView>
   );
 }
 }
