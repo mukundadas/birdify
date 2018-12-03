@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ListView, View, Image, TouchableOpacity, BackHandler, Text, StatusBar, PixelRatio, Alert } from 'react-native';
-import firebase from 'firebase';
+import firebase from '@firebase/app';
 import { Card, CardSection } from '../common';
 
 

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity,
          TextInput, PixelRatio, Image,
          BackHandler, StatusBar, ToastAndroid
        } from 'react-native';
-import firebase from 'firebase';
+import firebase from '@firebase/app';
 
 const searchImg = require('../../images/search.png');
 const plusImg = require('../../images/plus.jpg');
